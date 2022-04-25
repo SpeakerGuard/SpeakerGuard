@@ -1,12 +1,12 @@
 
-# SEC4SR
-This repository contains the code for SEC4SR (**SEC**urity evaluation platform **FOR** **S**peaker **R**ecogntion), a Pytorch library for adversarial machine learning research on speaker recognition.
+# SpeakerGuard
+This repository contains the code for SpeakerGuard, a Pytorch library for adversarial machine learning research on speaker recognition.
 
 Paper: Anonymous Submission to a conference (Under Review Currently)
 
-Website: [SEC4SR Website](https://sec4sr.github.io)
+Website: [SpeakerGuard Website](https://speakerguard.github.io/)
 
-Feel free to use SEC4SR for academic purpose 😄. For commercial purpose, please contact us 📫.
+Feel free to use SpeakerGuard for academic purpose 😄. For commercial purpose, please contact us 📫.
 
 # 1. Usage
 ## 1.1 Requirements
@@ -116,7 +116,7 @@ so that everyone can access them (also as a way to propaganda your works), feel 
 ## MC (Model Component)
 MC contains three state-of-the-art embedding-based speaker recognition models, i.e., ivector-PLDA, xvector-PLDA and AudioNet. Xvector-PLDA and AudioNet are based on neural networks while ivector-PLDA on statistic model (i.e Gaussian Mixture Model).
 
-The flexibility and extensibility of SEC4SR make it easy to add new models. 
+The flexibility and extensibility of SpeakerGuard make it easy to add new models. 
 <!-- Just wrap the model as `torch.nn.Module` and implement `forward`, `score` and `make_decision` methods. -->
 To add a new model, one can define a new subclass of the `torch.nn.Module` class and implement three methods: `forward`, `score`, and `make_decision` , then it can be evaluated using different attacks.
 
@@ -127,12 +127,12 @@ We provide five datasets, namely, Spk10_enroll, Spk10_test, Spk10_imposter, Spk2
 All our datasets are subclasses of the class `torch.utils.data.Dataset`. Hence, to add a new dataset, one just need to define a new subclass of `torch.utils.data.Dataset` and implement two methods: `__len__` and `__getitem__`, which defines the length and loading sequence of the dataset.
 
 ## AC (Attack Component)
-SEC4SR currently incorporate four white-box attacks (FGSM, PGD, CW$_\infty$ and CW$_2$) and two black-box attacks (FAKEBOB and SirenAttack). 
+SpeakerGuard currently incorporate four white-box attacks (FGSM, PGD, CW$_\infty$ and CW$_2$) and two black-box attacks (FAKEBOB and SirenAttack). 
 <!-- To incorporate new attack algorithms, one just need to inhert from the class in `attack/Attack.py` and implement the abstract method `attack`. -->
 To add a new attack, one can define a new subclass of the abstract class `Attack` and implement the `attack` method. This design ensures that the `attack` methods in different concrete `Attack` classes have the same method signature, i.e., unified API.
 
 ## DEC (Defense Component)
-To secure SRSs from adversarial attack, SEC4SR provides 2 robust training methods (FGSM and PGD adversarial training) and 22 speech/speaker-dedicated input transformation methods, including our feature-level approach FEATURE COMPRESSION (FeCo). 
+To secure SRSs from adversarial attack, SpeakerGuard provides 2 robust training methods (FGSM and PGD adversarial training) and 22 speech/speaker-dedicated input transformation methods, including our feature-level approach FEATURE COMPRESSION (FeCo). 
 <!-- All input transformation methods are implemented as standalone python functions, making it easy to extend new methods. -->
 Since all our defenses are standalone functions, adding a new defense is straightforward, one just needs to implement it as a python function accepting the input audios or features as one of its arguments.
 
