@@ -23,6 +23,7 @@ from attack.CWinf import CWinf
 from attack.CW2 import CW2
 from attack.FAKEBOB import FAKEBOB
 from attack.SirenAttack import SirenAttack
+from attack.Kenan import Kenan
 
 
 device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
@@ -141,18 +142,29 @@ def parse_args():
         siren_parser.add_argument("-w_init", type=float, default=0.9)
         siren_parser.add_argument("-w_end", type=float, default=0.1)
 
+        kenan_parser = subparser.add_parser("kenan")
+        kenan_parser.add_argument("-atk_name", default='fft', type=str, choices=['fft', 'ssa'])
+        kenan_parser.add_argument("-raster_width", default=100, type=int)
+        kenan_parser.add_argument("-max_iter", default=15, type=int)
+        kenan_parser.add_argument("-early_stop", type=int, default=0)
+
     args = parser.parse_args()
     return args
 
 def save_audio(advers, names, root, fs=16000):
     for adver, name in zip(advers[:, 0, :], names):
-        adver = (adver.detach().cpu().numpy() * (2 ** (bits-1))).astype(np.int16)
+        if 0.9 * adver.max() <= 1 and 0.9 * adver.min() >= -1:
+            adver = adver * (2 ** (bits-1))
+        if type(adver) == torch.Tensor:
+            adver = adver.detach().cpu().numpy()
+        adver = adver.astype(np.int16)
         spk_id = name.split("-")[0]
         spk_dir = os.path.join(root, spk_id)
         if not os.path.exists(spk_dir):
             os.makedirs(spk_dir)
         adver_path = os.path.join(spk_dir, name + ".wav")
         write(adver_path, fs, adver)
+        
 
 def main(args):
 
@@ -246,6 +258,10 @@ def main(args):
                                epsilon=args.epsilon, max_epoch=args.max_epoch, max_iter=args.max_iter,
                                c1=args.c1, c2=args.c2, n_particles=args.n_particles, w_init=args.w_init, w_end=args.w_end,
                                batch_size=args.batch_size, EOT_size=args.EOT_size, EOT_batch_size=args.EOT_batch_size,)
+    elif args.attacker == 'kenan':
+        attacker = Kenan(model, atk_name=args.atk_name, max_iter=args.max_iter, 
+                        raster_width=args.raster_width, targeted=args.targeted, verbose=1, BITS=bits, 
+                        early_stop=bool(args.early_stop), batch_size=args.batch_size)
     else:
         raise NotImplementedError('Not Supported Attack Algorithm')
 
@@ -262,6 +278,8 @@ def main(args):
         attacker_param = [args.epsilon, args.confidence, args.samples_per_draw, args.max_iter, args.stop_early_iter]
     elif args.attacker == 'SirenAttack':
         attacker_param = [args.epsilon, args.confidence, args.max_epoch, args.max_iter]
+    elif args.attacker == 'kenan':
+        attacker_param = "{}-{}".format(args.atk_name, args.max_iter)
     else:
         raise NotImplementedError('Not Supported Attack Algorithm')
 
