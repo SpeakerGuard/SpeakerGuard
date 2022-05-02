@@ -1,6 +1,7 @@
 
 # SpeakerGuard
-This repository contains the code for SpeakerGuard, a Pytorch library for adversarial machine learning research on speaker recognition.
+<!-- This repository contains the code for SpeakerGuard, a Pytorch library for adversarial machine learning research on speaker recognition. -->
+This repository contains the code for SpeakerGuard, a Pytorch library for security research on speaker recognition.
 
 Paper: Anonymous Submission to a conference (Under Review Currently)
 
