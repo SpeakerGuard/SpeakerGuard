@@ -3,11 +3,32 @@
 <!-- This repository contains the code for SpeakerGuard, a Pytorch library for adversarial machine learning research on speaker recognition. -->
 This repository contains the code for SpeakerGuard, a Pytorch library for security research on speaker recognition.
 
-Paper: Anonymous Submission to a conference (Under Review Currently)
+<!-- Paper: Anonymous Submission to a conference (Under Review Currently) -->
+Paper: [SpeakerGuard Paper](https://arxiv.org/abs/2206.03393)
 
 Website: [SpeakerGuard Website](https://speakerguard.github.io/)
 
 Feel free to use SpeakerGuard for academic purpose 😄. For commercial purpose, please contact us 📫.
+
+Cite our paper as follow:
+```
+@article{SpeakerGuard,
+  author    = {Guangke Chen and
+               Zhe Zhao and
+               Fu Song and
+               Sen Chen and
+               Lingling Fan and
+               Feng Wang and 
+               Jiashui Wang},
+  title     = {Towards Understanding and Mitigating Audio Adversarial Examples for Speaker Recognition},
+  journal   = {CoRR},
+  volume    = {abs/2206.03393},
+  year      = {2022},
+  url       = {https://arxiv.org/abs/2206.03393},
+  eprinttype = {arXiv},
+  eprint    = {2206.03393},
+}
+```
 
 # 1. Usage
 ## 1.1 Requirements
