@@ -17,34 +17,32 @@ Robust_Training = [
     'AdvT' # adversarial training
 ]
 
-# def parser_defense_param(defense, defense_param):
-
-#     if defense == 'FeCo' or defense == 'FEATURE_COMPRESSION': # cl_m, point, ratio, other_param (L2, cos, ts, random) 
-#         defense_param = [defense_param[0], defense_param[1], float(defense_param[2]), defense_param[3]] 
-#     elif defense == 'BPF':
-#         defense_param = [float(defense_param[0]), float(defense_param[1])]
-#     elif defense == 'DS':
-#         defense_param = float(defense_param[0])
-#     elif defense:
-#         defense_param = int(defense_param[0])
-#     return defense_param
-
 def parser_defense(defense, defense_param, defense_flag, defense_order):
     ''' defense: list of str, e.g., ['AT', 'QT', 'FeCo']
         defense_param: list of str, e.g., ['16', '512', "kmeans 0.2 L2"]
         defense_param: list of int, e.g., [0, 0, 1]
     '''
+    # print(defense, defense_param, defense_flag, defense_order) 
     if defense is not None:
+        if defense_param is None:
+            defense_param = [None] * len(defense)
         assert len(defense) == len(defense_param)
         assert len(defense_param) == len(defense_flag)
         my_defense = []
         defense_name = ""
         for x, y, z in zip(defense, defense_param, defense_flag):
-            f = lambda_defense(x, y.split(' '))
-            my_defense.append([z, f])
-            defense_name = defense_name + '{}&{}@{}+'.format(x, y.replace(' ', '#'), z) if defense_order == 'sequential' else \
-                            defense_name + '{}&{}@{}$'.format(x, y.replace(' ', '#'), z)
+            if y is not None:
+                f = lambda_defense(x, y.split(' '))
+                my_defense.append([z, f])
+                defense_name = defense_name + '{}&{}@{}+'.format(x, y.replace(' ', '#'), z) if defense_order == 'sequential' else \
+                                defense_name + '{}&{}@{}$'.format(x, y.replace(' ', '#'), z)
+            else:
+                f = lambda_defense(x, None)
+                my_defense.append([z, f])
+                defense_name = defense_name + '{}&{}@{}+'.format(x, 'DEFAULT', z) if defense_order == 'sequential' else \
+                                defense_name + '{}&{}@{}$'.format(x, 'DEFAULT', z)
         defense_name = defense_name[:-1]
+        defense_name = defense_name.replace('.', '_')
         # print(defense_name)
     else:
         my_defense = None
