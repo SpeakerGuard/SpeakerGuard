@@ -21,12 +21,8 @@ Cite our paper as follow:
                Feng Wang and 
                Jiashui Wang},
   title     = {Towards Understanding and Mitigating Audio Adversarial Examples for Speaker Recognition},
-  journal   = {CoRR},
-  volume    = {abs/2206.03393},
-  year      = {2022},
-  url       = {https://arxiv.org/abs/2206.03393},
-  eprinttype = {arXiv},
-  eprint    = {2206.03393},
+  journal   = {IEEE Transactions on Dependable and Secure Computing},
+  year      = {2022}
 }
 ```
 
