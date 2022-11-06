@@ -1,4 +1,7 @@
 
+# News
+- The paper releasing **SpeakerGuard** has been accepted by IEEE Transactions on Dependable and Secure Computing (TDSC), 2022.
+
 # SpeakerGuard
 <!-- This repository contains the code for SpeakerGuard, a Pytorch library for adversarial machine learning research on speaker recognition. -->
 This repository contains the code for SpeakerGuard, a Pytorch library for security research on speaker recognition.
