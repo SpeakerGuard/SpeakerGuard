@@ -61,11 +61,11 @@ class FGSM(Attack):
             if iter < self.max_iter:
                 x_batch.grad = grad
                 # x_batch.data += self.epsilon * torch.sign(x_batch.grad) * self.grad_sign
-                ## x_batch.data += self.epsilon * torch.sign(grad) * self.grad_sign
-                x_batch.data += self.step_size * torch.sign(x_batch.grad) * self.grad_sign
+                x_batch.data += self.epsilon * torch.sign(grad) * self.grad_sign
+                #x_batch.data += self.step_size * torch.sign(x_batch.grad) * self.grad_sign
                 x_batch.grad.zero_()
-                # x_batch.data = torch.clamp(x_batch.data, min=lower, max=upper)
-                x_batch.data = torch.min(torch.max(x_batch.data, lower), upper)
+                x_batch.data = torch.clamp(x_batch.data, min=lower, max=upper)
+                #x_batch.data = torch.min(torch.max(x_batch.data, lower), upper)
             
         return x_batch, success
 
