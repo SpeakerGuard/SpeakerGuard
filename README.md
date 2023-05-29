@@ -35,7 +35,8 @@ pytorch=1.6.0, torchaudio=0.6.0, numpy=1.19.2, scipy=1.4.1,
 [libKMCUDA=6.2.3](https://github.com/src-d/kmcuda), kmeans-pytorch=0.3, torch-lfilter=0.0.3, 
 pesq=0.0.2, pystoi=0.3.3, librosa=0.8.0, kaldi-io=0.9.4
 
-If you don't have GPU, you can skip libKMCUDA.
+Note: libKMCUDA and kmeans-pytorch=0.3 are used by our proposed feature-level defense **Feature Compression (FeCo)**, for GPU and CPU version, respectively.
+If you don't have GPU, you can skip libKMCUDA. If you have problem in installing libKMCUDA, see [my instructions](instructions_install_libKMCUDA.md).
 
 If you want to use speech_compression methods in `defense/speech_compression.py`, you should also install `ffmpeg` and the required de/en-coders. See this [instructions](instructions_ffmpeg.md).
 
