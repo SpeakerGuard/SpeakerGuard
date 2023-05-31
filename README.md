@@ -49,7 +49,7 @@ We provide five datasets, namely, Spk10_enroll, Spk10_test, Spk10_imposter, Spk2
 
 [Spk10_imposter.tar.gz, 212MB, MD5:42abd80e27b78983a13b74e44a67be65](https://drive.google.com/uc?id=1f1GULs0aj_Xrw8JRxe6zzvTN3r2nnOf6&export\=download)
 
-[Spk251_train.tar.gz, 10GB, MD5:02bee7caf460072a6fc22e3666ac2187](https://drive.google.com/uc?id=1iGcMPiPMzcCLI7xKJLwH1L0Ff_95-tmB&export\=download)
+[Spk251_train.tar.gz, 10GB, MD5:02bee7caf460072a6fc22e3666ac2187](https://drive.google.com/uc?id=1iGcMPiPMzcCLI7xKJLwH1L0Ff_95-tmB&export\=download) or [Spk251_train.tar.gz 腾讯微云](https://share.weiyun.com/DLGsTp9L)
 
 [Spk251_test.tar.gz, 1GB, MD5:182dd6b17f8bcfed7a998e1597828ed6](https://drive.google.com/uc?id=1rsXzuEyi5Zqd1XAsr1_Op7mC7hqY0tsp&export\=download)
 
