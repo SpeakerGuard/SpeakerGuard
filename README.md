@@ -99,11 +99,11 @@ Single speaker models for SV task are  stored as `speaker_model_iv_plda_{ID}` an
 
 - Example 2: PGD targeted attack on FeCo-defended ivector-plda model for CSI task. FeCo is randomized, using EOT
   ```
-  python attackMain.py -defense FeCo -defense_param "kmeans 0.2 L2" -defense_flag 1 -root ./data -name Spk10_test -des ./adver-audio/iv-pgd -task CSI -EOT_size 5 -EOT_batch_size 5 -targeted iv_plda -model_file ./model_file/iv_plda/speaker_model_iv_plda PGD -epsilon 0.002 -max_iter 5 -loss Margin
+  python attackMain.py -defense FeCo -defense_param "kmeans 0.2 L2" -defense_flag 1 -root ./data -name Spk10_test -des ./adver-audio/iv-pgd -task CSI -EOT_size 5 -EOT_batch_size 5 -targeted iv_plda -model_file ./model_file/iv_plda/speaker_model_iv_plda -gmm_frame_bs 50 PGD -epsilon 0.002 -max_iter 5 -loss Margin
   ```
 
   Note: `-defense_flag 1` means we want FeCo to operate at the raw acoustic feature level. 
-  Set `-defense_flag 2` or `-defense_flag 3` for delta or cmvn acoustic feature level. 
+  Set `-defense_flag 2` or `-defense_flag 3` for delta or cmvn acoustic feature level. For the iv_plda model, consider reducing the `-gmm_frame_bs` parameter if you encounter the OOM error.
 
 ## 1.5 Evaluate Adversarial Examples
 - Example 1: Testing for unadaptive attack
