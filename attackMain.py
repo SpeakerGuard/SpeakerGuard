@@ -332,7 +332,7 @@ def main(args):
         save_audio(adver, file_name, adver_dir)
         success_cnt += sum(success)
     
-    total_cnt = len(dataset)
+    total_cnt = end - start
     print(args.defense, args.defense_param, args.attacker, attacker_param, 'success rate: %f' % (success_cnt * 100 / total_cnt)) 
 
 if __name__ == "__main__":
