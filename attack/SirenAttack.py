@@ -164,10 +164,8 @@ class SirenAttack(Attack):
                         w = (self.w_init - self.w_end) * (self.max_iter - iter - 1) / self.max_iter + self.w_end
                         # r1 = np.random.rand() + 0.00001
                         # r2 = np.random.rand() + 0.00001
-                        r1 = np.random.rand(len(consider_index), self.n_particles, n_channels, N) + 0.00001
-                        r2 = np.random.rand(len(consider_index), self.n_particles, n_channels, N) + 0.00001
-                        r1 = torch.tensor(r1, device=x_batch.device, dtype=torch.float)
-                        r2 = torch.tensor(r2, device=x_batch.device, dtype=torch.float)
+                        r1 = torch.rand([len(consider_index), self.n_particles, n_channels, N], device=x_batch.device, dtype=torch.float) + 0.00001
+                        r2 = torch.rand([len(consider_index), self.n_particles, n_channels, N], device=x_batch.device, dtype=torch.float) + 0.00001
                         volicities = (w * volicities + self.c1 * r1 * (pbest_locations - locations) +
                                 self.c2 * r2 * (gbest_location[consider_index, ...].unsqueeze(1) - locations))
                         locations = locations + volicities
