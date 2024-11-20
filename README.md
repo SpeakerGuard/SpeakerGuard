@@ -1,10 +1,12 @@
 
 # News
 - The paper releasing **SpeakerGuard** has been accepted by IEEE Transactions on Dependable and Secure Computing (TDSC), 2022.
-
+- Impact: SpeakerGuard is used by at least eight third-party research projects.
+- Impact: SpeakerGuard has been included as part of an industry-academia collaboration project with Ant Group.
+    
 # SpeakerGuard
 <!-- This repository contains the code for SpeakerGuard, a Pytorch library for adversarial machine learning research on speaker recognition. -->
-This repository contains the code for SpeakerGuard, a Pytorch library for security research on speaker recognition.
+This repository contains the code for SpeakerGuard, a Pytorch library for security research on speaker recognition, addressesing the lack of benchmarks in the field. 
 
 <!-- Paper: Anonymous Submission to a conference (Under Review Currently) -->
 Paper: [SpeakerGuard Paper](https://arxiv.org/abs/2206.03393)
@@ -29,8 +31,26 @@ Cite our paper as follow:
 }
 ```
 
-# 1. Usage
-## 1.1 Requirements
+# 1. Overview
+This platform has the following features:
+- fully developed with PyTorch, a user-friendly deep learning framework.
+- modular design approach by breaking it into six key components, i.e., Model, Dataset, Attack (including 7 attack types), Defense (featuring 24 defenses), Adaptive Attack, and Metric (with 8 evaluation metrics), for rich functionality, usability, and extensibility.
+- unified APIs and abstract classes for different objects within the same module, and step-by-step guidance with several detailed examples, for easy use. 
+- each component is structured as separate Python modules, each with its own directory and accessible via import, allowing seamless integration of new elements.
+
+<center>
+    <img style="border-radius: 0.3125em;
+    box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
+    src="figure/overview.jpg">
+    <br>
+    <div style="color:orange; border-bottom: 1px solid #d9d9d9;
+    display: inline-block;
+    color: #999;
+    padding: 2px;"></div>
+</center>
+
+# 2. Usage
+## 2.1 Requirements
 pytorch=1.6.0, torchaudio=0.6.0, numpy=1.19.2, scipy=1.4.1, 
 [libKMCUDA=6.2.3](https://github.com/src-d/kmcuda), kmeans-pytorch=0.3, torch-lfilter=0.0.3, 
 pesq=0.0.2, pystoi=0.3.3, librosa=0.8.0, kaldi-io=0.9.4
@@ -40,7 +60,7 @@ If you don't have GPU, you can skip libKMCUDA. If you have problem in installing
 
 If you want to use speech_compression methods in `defense/speech_compression.py`, you should also install `ffmpeg` and the required de/en-coders. See this [instructions](instructions_ffmpeg.md).
 
-## 1.2 Dataset Preparation
+## 2.2 Dataset Preparation
 We provide five datasets, namely, Spk10_enroll, Spk10_test, Spk10_imposter, Spk251_train and Spk_251_test. They cover all the recognition tasks (i.e., CSI-E, CSI-NE, SV and OSI). The code in `./dataset/Dataset.py` will download them automatically when they are used. You can also manually download them using the follwing links:
 
 [Spk10_enroll.tar.gz, 18MB, MD5:0e90fb00b69989c0dde252a585cead85](https://drive.google.com/uc?id=1BBAo64JOahk0F3yBAovnRLZ1NvjwBy7y&export\=download)
@@ -55,8 +75,8 @@ We provide five datasets, namely, Spk10_enroll, Spk10_test, Spk10_imposter, Spk2
 
 After downloading, untar them inside `./data` directory.
 
-## 1.3 Model Preparation
-### 1.3.1 Speaker Enroll (CSI-E/SV/OSI tasks)
+## 2.3 Model Preparation
+### 2.3.1 Speaker Enroll (CSI-E/SV/OSI tasks)
 <!-- - Download [iv_system, MD5:bfe90ec7782b54dc295e72b5bf789377](https://drive.google.com/uc?id=13yDZvM6a7W1Str2KEI7Vrm2xSdxWe7Vv&export\=download) and [xv_system, MD5:37cb3e7ca48c0da3ae72a35195aacf58](https://drive.google.com/uc?id=1HbpR6cUuPzDQLVvQTFUpIAflEa1eP-XF&export\=download), and untar them inside the reposity directory (i.e., `./`). Iv_system and xv_system contain the pre-trained ivector-PLDA and xvector-PLDA background models. -->
 - Download [pre-trained-models.tar.gz, 340MB, MD5:b011ead1e6663d557afa9e037f30a866](https://drive.google.com/uc?id=1kxsSr7V_DbPloUPeqgsxUbuHsV6rBveH&export\=download) and untar it inside the reposity directory (i.e., `./`). It contains the pre-trained ivector-PLDA and xvector-PLDA background models.
 - Run `python enroll.py iv_plda` and `python enroll.py xv_plda` 
@@ -66,7 +86,7 @@ Single speaker models for SV task are  stored as `speaker_model_iv_plda_{ID}` an
 - Run `python set_threshold.py iv_plda` and 
 `python set_threshold.py xv_plda` to set the threshold of SV/OSI tasks (also test the EER of SV/OSI tasks and the accuracy of CSI-E task).
 
-### 1.3.2 Natural Training (CSI-NE task)
+### 2.3.2 Natural Training (CSI-NE task)
 - Sole natural training: 
   ```
   python natural_train.py -num_epoches 30 -batch_size 128 -model_ckpt ./model_file/natural-audionet -log ./model_file/natural-audionet-log
@@ -77,7 +97,7 @@ Single speaker models for SV task are  stored as `speaker_model_iv_plda_{ID}` an
   ```
   Note: `-defense_flag 0` means QT operates at the waveform level.
 
-### 1.3.3 Adversarial Training (CSI-NE task)
+### 2.3.3 Adversarial Training (CSI-NE task)
 - Sole FGSM adversarial training:
   ```
   python adver_train.py -attacker FGSM -epsilon 0.002 -model_ckpt ./model_file/fgsm-adver-audionet -log ./model_file/fgsm-adver-audionet-log -evaluate_adver
@@ -91,7 +111,7 @@ Single speaker models for SV task are  stored as `speaker_model_iv_plda_{ID}` an
   python adver_train.py -defense AT -defense_param 16 -defense_flag 0 -attacker PGD -epsilon 0.002 -max_iter 10 -EOT_size 10 -EOT_batch_size 5 -model_ckpt ./model_file/AT-16-pgd-adver-audionet -log ./model_file/AT-16-pgd-adver-audionet-log
   ```
 
-## 1.4 Generate Adversarial Examples
+## 2.4 Generate Adversarial Examples
 - Example 1: FAKEBOB attack on naturally-trained audionet model with QT (q=512)
   ```
   python attackMain.py -task CSI -root ./data -name Spk251_test -des ./adver-audio/QT-512-audionet-fakebob audionet_csine -extractor ./model_file/QT-512-natural-audionet FAKEBOB -epsilon 0.002
@@ -105,7 +125,7 @@ Single speaker models for SV task are  stored as `speaker_model_iv_plda_{ID}` an
   Note: `-defense_flag 1` means we want FeCo to operate at the raw acoustic feature level. 
   Set `-defense_flag 2` or `-defense_flag 3` for delta or cmvn acoustic feature level. For the iv_plda model, consider reducing the `-gmm_frame_bs` parameter if you encounter the OOM error.
 
-## 1.5 Evaluate Adversarial Examples
+## 2.5 Evaluate Adversarial Examples
 - Example 1: Testing for unadaptive attack
   ```
   python test_attack.py -defense QT -defense_param 512 -defense_flag 0 -root ./adver-audio -name QT-512-audionet-fakebob -root_ori ./data -name_ori Spk251_test audionet_csine -extractor ./model_file/QT-512-natural-audionet
@@ -131,7 +151,7 @@ You can also try the combination of different transformation-based defenses, e.g
 ```
 where `-defense_order` specifies the combination way (sequential or average).
 
-# 2. Extension
+# 3. Extension
 If you would like to incorporate your attacks/defenses/models/datasets into our official repositor 
 so that everyone can access them (also as a way to propaganda your works), feel free to make a pull resuest or contact us.
 
